@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Profile Card - Riya Gupta</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome for icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <style>
+    :root {
+      --bg: #020617;
+      --card-bg: #020617;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --accent: #6366f1;
+      --accent-soft: rgba(99, 102, 241, 0.3);
+      --border-subtle: rgba(148, 163, 184, 0.4);
+    }
+
+    body.light-theme {
+      --bg: #e5e7eb;
+      --card-bg: #ffffff;
+      --text-main: #020617;
+      --text-muted: #4b5563;
+      --accent: #4f46e5;
+      --accent-soft: rgba(79, 70, 229, 0.15);
+      --border-subtle: rgba(148, 163, 184, 0.65);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at top, #1f2937, var(--bg));
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      padding: 20px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card {
+      width: 330px;
+      max-width: 100%;
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 20px 18px 16px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease,
+        transform 0.2s ease;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: conic-gradient(
+        from 160deg,
+        rgba(59, 130, 246, 0.15),
+        rgba(236, 72, 153, 0.25),
+        rgba(56, 189, 248, 0.18),
+        rgba(59, 130, 246, 0.15)
+      );
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      z-index: -1;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 22px 50px rgba(15, 23, 42, 0.85);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .name {
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      margin-bottom: 12px;
+    }
+
+    .avatar-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .avatar-ring {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, #4f46e5, #22d3ee);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #0f172a;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .role {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .description {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      text-align: center;
+      margin-bottom: 16px;
+      padding: 0 4px;
+    }
+
+    .description span.highlight {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .socials-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      border: 1px solid var(--border-subtle);
+      text-decoration: none;
+      color: var(--text-main);
+      background: rgba(15, 23, 42, 0.9);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease,
+        color 0.2s ease, border-color 0.2s ease;
+    }
+
+    body.light-theme .social-link {
+      background: #f9fafb;
+    }
+
+    .social-link i {
+      font-size: 0.85rem;
+    }
+
+    .social-link.github:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.7);
+      background: #111827;
+      color: #e5e7eb;
+      border-color: #111827;
+    }
+
+    .social-link.linkedin:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(37, 99, 235, 0.7);
+      background: #2563eb;
+      color: #e5e7eb;
+      border-color: #2563eb;
+    }
+
+    .social-link.portfolio:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(244, 114, 182, 0.7);
+      background: #be185d;
+      color: #fdf2f8;
+      border-color: #be185d;
+    }
+
+    .info-line {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .theme-toggle-btn {
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--accent-soft);
+      color: var(--text-main);
+      font-size: 0.8rem;
+      padding: 6px 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      outline: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .theme-toggle-btn i {
+      font-size: 0.85rem;
+    }
+
+    .theme-toggle-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.7);
+      background: rgba(129, 140, 248, 0.3);
+    }
+
+    @media (max-width: 400px) {
+      .card {
+        width: 100%;
+        padding: 18px 14px 14px;
+      }
+
+      .name {
+        font-size: 1.25rem;
+      }
+
+      .avatar-ring {
+        width: 95px;
+        height: 95px;
+      }
+
+      .social-link {
+        padding: 5px 8px;
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="card">
+      <!-- Name on the top -->
+      <h1 class="name">Riya Ramesh Gupta</h1>
+
+      <!-- Profile picture placeholder with image -->
+      <div class="avatar-wrapper">
+        <div class="avatar-ring">
+          <div class="avatar">
+            <!-- You can replace this placeholder URL with your own image like "me.jpg" -->
+            <img
+              src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg"
+              alt="Profile Picture"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Short role line -->
+      <p class="role">BSc-IT Student • Web Development Enthusiast</p>
+
+      <!-- Description -->
+      <p class="description">
+        I am a curious and hardworking student who loves building
+        <span class="highlight">simple and clean web pages</span>
+        using HTML, CSS, and JavaScript. I enjoy learning something new every day and
+        improving my problem-solving skills.
+      </p>
+
+      <!-- Social links row: GitHub + LinkedIn + Something extra (Portfolio) -->
+      <div class="socials-row">
+        <a
+          class="social-link github"
+          href="https://github.com/"
+          target="_blank"
+          id="githubLink"
+        >
+          <i class="fa-brands fa-github"></i>
+          <span>GitHub</span>
+        </a>
+
+        <a
+          class="social-link linkedin"
+          href="https://www.linkedin.com/"
+          target="_blank"
+          id="linkedinLink"
+        >
+          <i class="fa-brands fa-linkedin-in"></i>
+          <span>LinkedIn</span>
+        </a>
+
+        <a
+          class="social-link portfolio"
+          href="https://example.com"
+          target="_blank"
+          id="portfolioLink"
+        >
+          <i class="fa-solid fa-globe"></i>
+          <span>Portfolio</span>
+        </a>
+      </div>
+
+      <p class="info-line">Click a button to visit my profiles.</p>
+    </div>
+
+    <!-- Theme toggle button using JavaScript -->
+    <button class="theme-toggle-btn" id="themeToggleBtn">
+      <i class="fa-regular fa-moon"></i>
+      <span>Toggle Dark / Light Theme</span>
+    </button>
+  </div>
+
+  <script>
+    // Theme toggle logic
+    const themeToggleBtn = document.getElementById("themeToggleBtn");
+    const body = document.body;
+    const icon = themeToggleBtn.querySelector("i");
+
+    themeToggleBtn.addEventListener("click", () => {
+      body.classList.toggle("light-theme");
+
+      const isLight = body.classList.contains("light-theme");
+      themeToggleBtn.querySelector("span").textContent = isLight
+        ? "Switch to Dark Theme"
+        : "Toggle Dark / Light Theme";
+
+      icon.classList.toggle("fa-moon", !isLight);
+      icon.classList.toggle("fa-sun", isLight);
+    });
+
+    // Optional: small alert when clicking social links (shows JS usage clearly)
+    const githubLink = document.getElementById("githubLink");
+    const linkedinLink = document.getElementById("linkedinLink");
+    const portfolioLink = document.getElementById("portfolioLink");
+
+    githubLink.addEventListener("click", () => {
+      console.log("Opening GitHub profile...");
+    });
+
+    linkedinLink.addEventListener("click", () => {
+      console.log("Opening LinkedIn profile...");
+    });
+
+    portfolioLink.addEventListener("click", () => {
+      console.log("Opening portfolio website...");
+    });
+  </script>
+</body>
+</html>
